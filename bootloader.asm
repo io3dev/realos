@@ -1,4 +1,4 @@
-; "Bootloader", sets up stack, clears screen and jumps to main
+; "Bootloader", sets up stack, sets vga mode and jumps to "kernel" entry
 
 org 0x7C00   ; add 0x7C00 to label addresses
 bits 16      ; tell the assembler we want 16 bit code
@@ -10,7 +10,7 @@ mov ss, ax     ; setup stack
 mov sp, 0x7C00 ; stack grows downwards from 0x7C00
 
 mov ah, 0x0
-mov al, 0x3
+mov al, 3
 int 0x10
 
 ; mov ah, 0xE
@@ -19,7 +19,7 @@ int 0x10
 ; jmp main
 
 %include "kernel.asm"
-jmp main
+jmp entry
 
 
 times 510-($-$$) db 0

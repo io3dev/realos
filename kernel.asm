@@ -1,25 +1,35 @@
+entry:
+
+   
+   ; mov ah, 0
+   ; ; int 0x16
+
+   ; mov ah, 0x0
+   ; ; mov al, 15
+   ; int 0x10
+
+   mov bx, ask
+   call print_string
+
+   jmp main
+
 
 main:
-   mov al, '>'
-   call char
-
-   jmp shell_loop
-
-shell_loop:
+   ; mov bh, 0
    mov ah, 0
-
    int 0x16
+   mov ah, 0x0
+   mov al, 13
+   int 0x10
 
-   call char
-
-
-   mov dh, 0
-   jmp shell_loop
-
+   
+   mov bx, welcome
+   call print_string
+   jmp done
 
 
 done:
-   
+
 
    jmp done
 
@@ -27,7 +37,8 @@ done:
 
 
 ;DH = Row, DL = Column 
-cursor_move:
-   mov ah, 0x02
-   int 0x10
-   ret
+
+ask db "Press any button to switch to GRAPHICS MODE", '\0'
+welcome db "Welcome to GRAPHICS MODE", '\0'
+
+
